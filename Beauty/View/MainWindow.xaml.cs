@@ -29,6 +29,7 @@ namespace Beauty
         {
             InitializeComponent();
             DataContext = new ApplicationViewModel();
+            //Text
         }
     }
 }
