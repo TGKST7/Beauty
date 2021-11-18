@@ -1,0 +1,107 @@
+﻿<Window x:Name="MainForm" x:Class="Beauty.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Beauty.ViewModel"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:Beauty" xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        mc:Ignorable="d"
+        Title="Услуги" Height="700" Width="900" WindowStartupLocation="CenterScreen" Icon="/Beauty;component/Resources/beauty_logo.ico"
+        d:DataContext="{d:DesignInstance {x:Type vm:ApplicationViewModel}}" MinWidth="900" MinHeight="700">
+    <Grid x:Name="mainGrid">
+        <Label x:Name="headLabel" Content="Список услуг" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="47" Width="180" Foreground="#E5000000"/>
+        <!-- Здесь список услуг -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,120,0,0" Width="374" HorizontalAlignment="Left">
+            <ItemsControl Name="sevicesItems" Width="392" ItemsSource="{Binding DataBase.Services}" HorizontalAlignment="Left">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="5,0,0,15" Height="130" Background="{x:Null}" Width="360" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Border Background="{x:Null}" Height="1" Margin="15,127,0,2" BorderBrush="#19000000"
+                                    BorderThickness="0,0,0,1" CornerRadius="5" Width="340" HorizontalAlignment="Center"/>
+                            <Image HorizontalAlignment="Left" Height="121" Margin="9,6,0,8" VerticalAlignment="Top" Width="120" Source="{Binding MainImage}"/>
+                            <Label x:Name="nameServisLabel" Content="{Binding NameService}" HorizontalAlignment="Left" Margin="148,10,0,0" VerticalAlignment="Top" Width="188" FontWeight="Bold"/>
+                            <Label x:Name="priceServisLabel"  HorizontalAlignment="Left" Margin="148,45,0,0" VerticalAlignment="Top" Width="192" Padding="2,5,5,5">
+                                <Label.Content >
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style>
+                                                <Setter Property="TextBlock.Text">
+                                                    <Setter.Value>
+                                                        <MultiBinding StringFormat="{}{0} рублей за {1}">
+                                                            <Binding Path="CostDiscount"/>
+                                                            <Binding Path="Duration"/>
+                                                        </MultiBinding>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Label.Content>
+                            </Label>
+                            <Button x:Name="editBtn" Content="Редактировать" HorizontalAlignment="Left" Margin="148,85,0,0" VerticalAlignment="Top" Width="100" Background="#E5FF6856" BorderBrush="{x:Null}" 
+                                    Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Cursor="Hand" Style="{DynamicResource ButtonStyle}" Foreground="White" Height="23"/>
+                            <Button x:Name="DeleteBtn" Content="Удалить" HorizontalAlignment="Left" Margin="253,85,0,0" VerticalAlignment="Top" Width="83" Background="#E5FF6856" BorderBrush="{x:Null}" 
+                                    Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Cursor="Hand" Style="{DynamicResource ButtonStyle}" Foreground="White" Height="23"/>
+
+                        </Grid>
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <Label x:Name="editServiceLabel" Content="Редактирование услуги" Margin="444,120,26.6,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Height="47" Foreground="#E5000000" HorizontalContentAlignment="Center" Padding="5,0,5,5"/>
+        <StackPanel x:Name="editServicePanel" Height="481" Margin="444,167,26.6,0" VerticalAlignment="Top" >
+            <Label x:Name="labelPanelId" Content="Номер услуги" FontWeight="Bold"/>
+            <TextBox x:Name="textboxPaneId" Height="23" TextWrapping="Wrap" Text="{Binding DataContext.SelectedService.Id, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0,0,0,1" Padding="0,3,0,0" Margin="5,0,0.2,0" IsEnabled="False"/>
+            <Label x:Name="labelPanel1" Content="Наименование услуги" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="textboxPanel1" Height="23" TextWrapping="Wrap" Text="{Binding DataContext.SelectedService.NameService, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" BorderThickness="0,0,0,1" Padding="0,3,0,0" Margin="5,0,0.2,0"/>
+            <Label x:Name="labelPanel2" Content="Стоимость" FontWeight="Bold" Margin="0,10,0.2,0"/>
+            <TextBox x:Name="textboxPanel2" Height="23" TextWrapping="Wrap" BorderThickness="0,0,0,1" Padding="0,3,0,0" Margin="5,0,0.2,0" Text="{Binding DataContext.SelectedService.Cost, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+            <Label x:Name="labelPanel3" Content="Длительность" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="textboxPanel3" Height="24" TextWrapping="Wrap" Text="{Binding DataContext.SelectedService.Duration, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" BorderThickness="0,0,0,1" Padding="0,3,0,0" Margin="5,0,0.2,0"/>
+            <Label x:Name="labelPanel4" Content="Скидка" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox x:Name="textboxPanel4" Height="23" TextWrapping="Wrap" Text="{Binding DataContext.SelectedService.Discount, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" BorderThickness="0,0,0,1" Padding="0,3,0,0" Margin="5,0,0.2,0"/>
+            <Label x:Name="labelPanel5" Content="Основное изображение" FontWeight="Bold" Padding="5,8,5,5" Margin="0,10,0,0"/>
+            <DockPanel Height="100" LastChildFill="False">
+                <Image x:Name="editImage" Source="{Binding DataContext.SelectedService.MainImage, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" HorizontalAlignment="Left" Width="165" Margin="5,0,0,0"/>
+                <Button x:Name="editImageBtn" Content="Изменить" HorizontalAlignment="Left" Height="30" Margin="5,35,0,35" Width="140" Background="#E5FF6856" Foreground="White" Style="{DynamicResource ButtonStyle}" Cursor="Hand" Command="{Binding ChangeImageCommand}"/>
+            </DockPanel>
+            <StackPanel Height="88" Margin="0,0,0.2,0" Orientation="Horizontal">
+                <Button x:Name="SaveServiceBtn" Content="Сохранить" HorizontalAlignment="Left" Height="35" Margin="5,0,0,0" Width="150" Background="#E5FF6856" Foreground="White" Style="{DynamicResource ButtonStyle}" Cursor="Hand" Command="{Binding SaveCommand}"/>
+                <Button x:Name="AddServiceBtn" Content="Добавить услугу" HorizontalAlignment="Left" Height="35" Margin="11,0,0,0" Width="150" Background="#E5FF6856" Foreground="White" Style="{DynamicResource ButtonStyle}" Cursor="Hand" Command="{Binding AddServiceCommand}"/>
+            </StackPanel>
+        </StackPanel>
+        <Image Height="40" Margin="0,15,18.6,0" VerticalAlignment="Top" Source="/Beauty;component/Resources/beauty_logo.ico" Width="49" HorizontalAlignment="Right"/>
+        <Label x:Name="sortLabel" Content="Сортировать по:" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" FontSize="14" Height="31" Width="118" Foreground="#B2000000"/>
+        <Label x:Name="sortCostLabel" Content="стоимости" HorizontalAlignment="Left" Margin="126,61,0,0" VerticalAlignment="Top" FontSize="14" Height="31" Width="75" Foreground="#E5000000" Padding="0,5,5,5"/>
+        <Button x:Name="sortCostBtnUp" Content="&#xf062;" Style="{StaticResource FontAwesome}" HorizontalAlignment="Left" Height="31" Margin="200,59,0,0" VerticalAlignment="Top" Width="26" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#E5000000" Cursor="Hand" FontFamily="/Beauty;component/fonts/#FontAwesome" Command="{Binding SortCostCommand}" Visibility="{Binding DataContext.isVisibleArrowUp, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button x:Name="sortCostBtnDown" Content="&#xf063;" Style="{StaticResource FontAwesome}" HorizontalAlignment="Left" Height="31" Margin="200,59,0,0" VerticalAlignment="Top" Width="26" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#E5000000" Cursor="Hand" FontFamily="/Beauty;component/fonts/#FontAwesome" Command="{Binding SortCostCommand}" Visibility="{Binding DataContext.isVisibleArrowDown, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label x:Name="searchLabel" Content="Поиск:" HorizontalAlignment="Left" Margin="444,61,0,0" VerticalAlignment="Top" FontSize="14" Height="31" Width="59" Foreground="#B2000000"/>
+        <TextBox x:Name="searchBox" Height="23" Margin="508,65,26.6,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0,0,0,1" Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding SearchServiceCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+    </Grid>
+    <Window.Resources>
+        <Style TargetType="{x:Type Control}" x:Key="BasedStyle">
+            <Setter Property="FontFamily" Value="Arial"/>
+        </Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BasedStyle}"/>
+    </Window.Resources>
+</Window>

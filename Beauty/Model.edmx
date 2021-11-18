@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BeautyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Service_import">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Наименование_услуги" Type="nvarchar" MaxLength="255" />
+          <Property Name="Главное_изображение" Type="nvarchar" MaxLength="255" />
+          <Property Name="Длительность" Type="nvarchar" MaxLength="255" />
+          <Property Name="Стоимость" Type="int" />
+          <Property Name="Действующая_скидка" Type="int" />
+          <Property Name="(С учётом скидки)" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="Хранилище BeautyModelContainer">
+          <EntitySet Name="Service_import" EntityType="Self.Service_import" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BeautyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Service_import">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameService" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MainImage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Int32" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="CostDiscount" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="BeautyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Service_import" EntityType="Self.Service_import" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BeautyModelContainer" CdmEntityContainer="BeautyEntities">
+          <EntitySetMapping Name="Service_import">
+            <EntityTypeMapping TypeName="BeautyModel.Service_import">
+              <MappingFragment StoreEntitySet="Service_import">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="NameService" ColumnName="Наименование_услуги" />
+                <ScalarProperty Name="MainImage" ColumnName="Главное_изображение" />
+                <ScalarProperty Name="Duration" ColumnName="Длительность" />
+                <ScalarProperty Name="Cost" ColumnName="Стоимость" />
+                <ScalarProperty Name="Discount" ColumnName="Действующая_скидка" />
+                <ScalarProperty Name="CostDiscount" ColumnName="(С учётом скидки)" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
